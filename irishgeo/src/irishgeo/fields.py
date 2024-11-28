@@ -2,7 +2,7 @@ from django.forms import CharField, ChoiceField
 from django.core.exceptions import ValidationError
 import re
 
-# List of Irish states (counties)
+# List of all Irish counties
 IRISH_COUNTIES = [
     ("CW", "Carlow"),
     ("CN", "Cavan"),
@@ -34,28 +34,27 @@ IRISH_COUNTIES = [
 
 # Validator for Irish Eircode
 def validate_eircode(value):
-    """
-    Validates Irish Eircode format: 'A65 F4E2'
-    """
+    
+#This validates the Irish Eircode in format: 'A65 F4E2'
+
     pattern = r"^[A-Za-z0-9]{3}[ ]?[A-Za-z0-9]{4}$"
     if not re.match(pattern, value):
         raise ValidationError(f"{value} is not a valid Eircode.")
 
 # Irish Eircode Field
 class IrishEircodeField(CharField):
-    """
-    Custom form field for Irish Eircode validation.
-    """
+    
+#Custom form field for Irish Eircode validation.
     def __init__(self, *args, **kwargs):
         kwargs['max_length'] = 8
         kwargs['validators'] = [validate_eircode]
         super().__init__(*args, **kwargs)
 
-# Irish State (County) Field
+# Irish County Field
 class IrishStateField(ChoiceField):
-    """
-    Custom form field for Irish State/County selection.
-    """
+    
+#Custom form field for Irish County selection.
+    
     def __init__(self, *args, **kwargs):
         kwargs['choices'] = IRISH_COUNTIES
         super().__init__(*args, **kwargs)

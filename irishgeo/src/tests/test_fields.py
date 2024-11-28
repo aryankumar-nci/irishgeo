@@ -1,9 +1,9 @@
 from django.core.exceptions import ValidationError
 from irishgeo.fields import IrishStateField, IrishEircodeField, validate_eircode
 
-# Test Irish Eircode validation
+# Testing Irish Eircode validation
 def test_valid_eircode():
-    validate_eircode("A65 F4E2")  # Should not raise ValidationError
+    validate_eircode("A65 F4E2")  
 
 def test_invalid_eircode():
     try:
